@@ -15,7 +15,7 @@ This is the recommended way to run it:
 
 Inside ipython, do:
 
-%edit find_spam_users.py
+ %edit find_spam_users.py
 
 and save and exit the editor. Now, you have some functions available.
 
