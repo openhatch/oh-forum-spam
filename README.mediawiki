@@ -1,0 +1,36 @@
+This is a simple script to help us (well, me) remove spam from the
+OpenHatch forum, which runs Vanilla.
+
+It's based on the notion that once a user posts a single piece of very
+spammy text, they are a bad actor and ought to be removed from the
+system entirely.
+
+You'll also need a web browser logged into the forum as an admin.
+
+This is the recommended way to run it:
+
+* cd into this directory, then from a terminal, run
+
+* ipython
+
+Inside ipython, do:
+
+%edit find_spam_users.py
+
+and save and exit the editor. Now, you have some functions available.
+
+To remove spam from the site, run this until you find no spam:
+
+ bad = in_feed_look_for_spammy_users(get_feed())
+ make_deletion_urls(bad)
+
+The last line will print URLs for you to visit on the web. Go visit
+the URLs, and click that you agree, and those bad users and their
+content will be deleted.
+
+== License ==
+
+Permission to redistribute this entire repository is granted under the
+terms of the Apache License 2.0. It is currently (C) Asheesh Laroia.
+
+Other contributors welcome!
