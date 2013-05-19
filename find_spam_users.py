@@ -27,7 +27,7 @@ def get_feed():
 
 def prompt_for_spammy_content(spam_author_ids,
                               iterable_of_discussions, spammy, hammy,
-                              max_prompts=None):
+                              max_prompts=None, no_input=False):
     prompts_so_far = 0
 
     for discussion in iterable_of_discussions:
@@ -53,7 +53,7 @@ def prompt_for_spammy_content(spam_author_ids,
         else:
             hammy.add(author_id)
 
-def in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=None):
+def in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=None, no_input=False):
     spam_authors = set()
      
     if hasattr(feed['Discussions'], 'values'):
@@ -72,7 +72,8 @@ def in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=None):
                                   data_source,
                                   spammy,
                                   hammy,
-                                  max_prompts)
+                                  max_prompts,
+                                  no_input)
 
     return hammy, spam_authors
 
@@ -88,13 +89,18 @@ def save(hammy, spammy):
     with open('spammy.json', 'w') as fd:
         json.dump(sorted(spammy), fd)
 
-def main():
+def main(no_input=False):
     hammy, spammy = init()
     feed = get_feed()
-    hammy, new_spammy = in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=1)
+    hammy, new_spammy = in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=5, no_input=no_input)
     make_deletion_urls(new_spammy)
     spammy.update(new_spammy)
     save(hammy, spammy)
 
 if __name__ == '__main__':
-    main()
+    import sys
+    if '--no-input' in sys.argv:
+        no_input=True
+    else:
+        no_input=False
+    main(no_input)
