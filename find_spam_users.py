@@ -25,8 +25,13 @@ def prompt_for_spammy_content(spam_author_ids,
 def in_feed_look_for_spammy_users(feed):
     spam_authors = set()
 
+    if hasattr(feed['Discussions'], 'values'):
+        discussions = feed['Discussions'].values()
+    else:
+        discussions = feed['Discussions']
+
     discussions_reformatted = [
-        value for value in feed['Discussions'].values()
+        value for value in discussions
         if value]
 
     for data_source in (
