@@ -46,3 +46,11 @@ def make_deletion_urls(user_ids):
     for user_id in user_ids:
         print "http://forum.openhatch.org/user/delete/%d/delete" % (
             user_id,)
+
+def main():
+    feed = get_feed()
+    spam_authors = in_feed_look_for_spammy_users(feed)
+    make_deletion_urls(spam_authors)
+
+if __name__ == '__main__':
+    main()
