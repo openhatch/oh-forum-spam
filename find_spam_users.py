@@ -1,5 +1,11 @@
+from __future__ import unicode_literals
 import json
 import urllib2
+import codecs
+import sys
+
+
+utf8_stdout = codecs.getwriter('utf8')(sys.stdout)
 
 def get_data(filename):
     try:
@@ -38,9 +44,9 @@ def prompt_for_spammy_content(spam_author_ids,
             return
 
         body = discussion['Body']
-        print body
+        print >> utf8_stdout, body
 
-        print "Is this spam?"
+        print >> utf8_stdout, "Is this spam?"
         yes_no = raw_input("y/N >")[:1].lower()
         if yes_no == 'y':
             spam_author_ids.add(author_id)
@@ -72,7 +78,7 @@ def in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=None):
 
 def make_deletion_urls(user_ids):
     for user_id in user_ids:
-        print "http://forum.openhatch.org/user/delete/%d/delete" % (
+        print >> utf8_stdout, "http://forum.openhatch.org/user/delete/%d/delete" % (
             user_id,)
 
 def save(hammy, spammy):
