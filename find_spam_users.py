@@ -79,8 +79,13 @@ def in_feed_look_for_spammy_users(feed, hammy, spammy, max_prompts=None, no_inpu
 
 def make_deletion_urls(user_ids):
     for user_id in user_ids:
-        print >> utf8_stdout, "http://forum.openhatch.org/user/delete/%d/delete" % (
+        print >> utf8_stdout, "You should go delete these discussions:"
+        print >> utf8_stdout, "http://forum.openhatch.org/profile/discussions/%d/contrib" % (
             user_id,)
+        print >> utf8_stdout, "and then go mark the user as Banned by visiting their profile and editing them:"
+        print >> utf8_stdout, "http://forum.openhatch.org/user/edit/%d" % (
+            user_id,)
+        print >> utf8_stdout, ""
 
 def save(hammy, spammy):
     with open('hammy.json', 'w') as fd:
